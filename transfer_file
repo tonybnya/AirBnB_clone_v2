@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Transfer files from client to server
-
-# Variables
-path="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)"
+# Transfers a file from our client to a server
+#
+# variables
+path="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 filename=$(basename "$BASH_SOURCE")
 brown='\e[0;33m'
 reset='\033[0m'
@@ -12,9 +12,7 @@ user="ubuntu"
 key="~/.ssh/id_rsa"
 
 if [ $# -eq 2 ]; then
-    scp -i "$key" -o StrictHostKeyChecking=no "$path"/"$file"
-    "$user"@"$ip":/home/"$user"/
+	scp -i "$key" -o StrictHostKeyChecking=no "$path"/"$file" "$user"@"$ip":/home/"$user"/
 else
-    echo -e "Usage: ${brown}$filename PATH_TO_FILE IP USERNAME
-    PATH_TO_SSH_KEY${reset}"
+	echo -e "Usage: ${brown}$filename PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY${reset}"
 fi
