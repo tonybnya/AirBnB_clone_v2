@@ -4,8 +4,25 @@
 
 read -rp "Enter a filename: " filename
 touch "$filename"
-chmod u+x "$filename"
-echo "#!/usr/bin/env bash" > "$filename"
-echo "# This script" >> "$filename"
+{
+  echo "#!/usr/bin/python3" > "$filename"
+  echo '"""'
+  echo "This Python script"
+  echo '"""'
+  echo ""
+  echo "from flask import Flask"
+  echo ""
+  echo "app = Flask(__name__)"
+  echo ""
+  echo ""
+  echo "@app.route('/', strict_slashes=False)"
+  echo "def index():"
+  echo "    '''Displays Hello HBNB!'''"
+  echo "    return 'Hello HBNB!'"
+  echo ""
+  echo ""
+  echo "if __name__ == '__main__':"
+  echo "    app.run(host='0.0.0.0', port=5000)"
+} >> "$filename"
 
-echo "File $filename created!"
+vim "$filename"
